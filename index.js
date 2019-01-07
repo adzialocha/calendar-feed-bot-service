@@ -102,6 +102,7 @@ function checkToken(token) {
 function checkChannel(channel, token) {
   return telegramBotRequest(token, 'sendMessage', {
     chat_id: channel,
+    disable_notification: true,
     text: 'This is a test message. Please delete me!',
   })
     .then(response => {
@@ -242,10 +243,10 @@ app.post('/broadcast/:id',
               'Thank you! Your event got broadcasted!'
             );
           })
-          .catch(() => {
+          .catch(err => {
             req.flash(
               'error',
-              'Something went wrong with this channel, please contact the owner!'
+              'Something went wrong with this channel, please contact the owner: ' + err
             );
           })
           .finally(() => {
@@ -304,14 +305,24 @@ app.post('/new',
       id,
       channel,
       token,
-    });
+    })
+      .then(() => {
+        const url = broadcastUrl(id);
 
-    req.flash(
-      'success',
-      `Thank you! Your channel was registered, you can invite people to post events by sharing the following broadcast link: ${broadcastUrl(id)}`
-    );
-
-    res.redirect('/new');
+        req.flash(
+          'success',
+          `Thank you! Your channel was registered, you can invite people to post events by sharing the following broadcast link: ${url}`
+        );
+      })
+      .catch(err => {
+        req.flash(
+          'error',
+          'An internal server error occurred: ' + err
+        );
+      })
+      .finally(() => {
+        res.redirect('/new');
+      });
   } else {
     req.flash(
       'error',
