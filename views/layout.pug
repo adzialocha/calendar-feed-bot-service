@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0')
+    title Calendar Feed Bot Service
+    link(rel='shortcut icon', href='/favicon.ico')
+    link(rel='stylesheet', href='/style.css')
+  body
+    .wrapper
+      header
+        h1 Calendar Feed Bot Service
+
+        nav
+          ul.navigation
+            li.navigation__item
+              a.navigation__link(href='/') Home
+            li.navigation__item
+              a.navigation__link(href='/new') New Channel
+            li.navigation__item
+              a.navigation__link(href='/faq') FAQ
+
+        if flash
+          .flash
+            if flash.error
+              each message in flash.error
+                .flash__message.flash__message--error= message
+            if flash.success
+              each message in flash.success
+                .flash__message.flash__message--success= message
+
+      main
+        block content

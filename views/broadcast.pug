@@ -1,0 +1,14 @@
+extends layout.pug
+
+include mixins/input-field
+
+block content
+  h2 Broadcast event to channel
+  h3= channel
+  form(method='POST')
+    +input-field('text', 'title', 'Title')
+    +input-field('text', 'description', 'Description')
+    +input-field('url', 'url', 'URL')
+    +input-field('datetime-local', 'date', 'Date & Time')
+    div !{captcha}
+    input(type='submit', value='Send')

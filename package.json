@@ -1,0 +1,30 @@
+{
+  "name": "calendar-feed-bots",
+  "version": "1.0.0",
+  "description": "Feed bots with events",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r dotenv/config index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "adzialocha",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
+    "connect-flash": "^0.1.1",
+    "connect-session-knex": "^1.4.0",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-recaptcha": "^4.1.1",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "helmet": "^3.15.0",
+    "knex": "^0.16.3",
+    "mysql": "^2.16.0",
+    "node-fetch": "^2.3.0",
+    "pug": "^2.0.3"
+  }
+}

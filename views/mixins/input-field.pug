@@ -1,0 +1,9 @@
+mixin input-field(type, key, label)
+  fieldset
+    - var value = ''
+    if fields && fields[key]
+      - value = fields[key]
+    if errors && errors[key]
+      .input-error= errors[key].msg
+    label(for=key)= label
+    input(type=type, value=value, name=key, id=key, required)
