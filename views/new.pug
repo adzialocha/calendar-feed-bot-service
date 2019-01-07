@@ -6,7 +6,7 @@ block content
   h2 New channel
   p Create a new channel for people to post events to. You will need to create a Telegram channel and bot first to proceed.
   form(method='POST')
-    +input-field('text', 'channel', 'Channel Name')
-    +input-field('text', 'token', 'Telegram API Bot Token')
+    +input-field('text', 'channel', 'Channel Name', '@YourPublicChannelName')
+    +input-field('text', 'token', 'Telegram API Bot Token', 'Secret Token')
     div !{captcha}
     input(type='submit', value='Create')

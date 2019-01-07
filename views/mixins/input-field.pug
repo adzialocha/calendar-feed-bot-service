@@ -1,4 +1,4 @@
-mixin input-field(type, key, label)
+mixin input-field(type, key, label, placeholder, max = 255)
   fieldset
     - var value = ''
     if fields && fields[key]
@@ -6,4 +6,4 @@ mixin input-field(type, key, label)
     if errors && errors[key]
       .input-error= errors[key].msg
     label(for=key)= label
-    input(type=type, value=value, name=key, id=key, required)
+    input(type=type, value=value, name=key, placeholder=placeholder, id=key, maxlength=max, required)

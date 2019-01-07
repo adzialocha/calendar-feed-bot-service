@@ -21,12 +21,8 @@ function generateRandomId() {
   return crypto.randomBytes(ID_LENGTH / 2).toString('hex');
 }
 
-function formatDate(isoDate) {
-  const split = isoDate.split('T');
-  const date = split[0].split('-');
-  const time = split[1].split(':');
-
-  return `${date[2]}.${date[1]}.${date[0]} ${time[0]}:${time[1]}`;
+function formatDate(date, time) {
+  return `${date} ${time}`;
 }
 
 function truncate(str, length = 64) {
@@ -210,16 +206,33 @@ app.post('/broadcast/:id',
     .trim()
     .blacklist(SANITIZE_BLACKLIST)
     .escape()
-    .isLength({ max: 64 }),
+    .isLength({ max: 140 })
+    .withMessage('Description is too long (maximum 140 characters)'),
   body('title')
     .trim()
     .blacklist(SANITIZE_BLACKLIST)
     .escape()
-    .isLength({ min: 5, max: 32 }),
+    .isLength({ min: 5, max: 40 })
+    .withMessage('Title is too short or too long (minimum 5 and maximum 40 characters)'),
   check('url')
-    .isURL({ require_protocol: true }),
+    .isURL({ require_protocol: true })
+    .withMessage('This is an invalid URL'),
   check('date')
-    .isISO8601(),
+    .matches(/^(((0[1-9]|[12]\d|3[01])\.(0[13578]|1[02])\.((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\.(0[13456789]|1[012])\.((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\/02\.((19|[2-9]\d)\d{2}))|(29\/02\.((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/)
+    .withMessage('Please write a valid date in the following format: DD.MM.YYYY'),
+  check('time')
+    .matches(/^([01]+[0-9]|2[0-3]):[0-5][0-9]$/)
+    .withMessage('Please write a valid time in the following 24 hour format: MM:HH'),
+  check('date')
+    .exists()
+    .custom((value, { req }) => {
+      const now = (new Date()).toISOString();
+      const date = req.body.date.split('.');
+      const time = req.body.time;
+
+      return `${date[2]}-${date[1]}-${date[0]}T${time}:00.000Z` > now;
+    })
+    .withMessage('Date lies in the past'),
 ], (req, res) => {
   const { id } = req.params;
 
@@ -229,7 +242,7 @@ app.post('/broadcast/:id',
 
       if (errors.isEmpty() && !req.recaptcha.error) {
         const { title, description, url } = req.body;
-        const date = formatDate(req.body.date);
+        const date = formatDate(req.body.date, req.body.time);
         const event = { title, date, description, url };
 
         broadcastEvent(
@@ -250,7 +263,7 @@ app.post('/broadcast/:id',
             );
           })
           .finally(() => {
-            res.render(`/broadcast/${id}`, { captcha: res.recaptcha, flash: req.flash() });
+            res.render(`broadcast`, { captcha: res.recaptcha, flash: req.flash() });
           });
       } else {
         req.flash(
@@ -288,7 +301,7 @@ app.post('/new',
     .custom(value => {
       return checkToken(value);
     })
-    .withMessage('Can not send a test message to channel, are your values correct?'),
+    .withMessage('Can not send a test message to channel, is this token correct?'),
   check('channel')
     .custom((value, { req }) => {
       return checkChannel(value, req.body.token);

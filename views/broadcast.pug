@@ -6,9 +6,10 @@ block content
   h2 Broadcast event to channel
   h3= channel
   form(method='POST')
-    +input-field('text', 'title', 'Title')
-    +input-field('text', 'description', 'Description')
-    +input-field('url', 'url', 'URL')
-    +input-field('datetime-local', 'date', 'Date & Time')
+    +input-field('text', 'title', 'Title', '(max. 40 characters)', 40)
+    +input-field('text', 'description', 'Description', 'Describe your event (max. 140 characters)', 140)
+    +input-field('url', 'url', 'URL', 'https://www...')
+    +input-field('text', 'date', 'Date', 'DD.MM.YYYY')
+    +input-field('text', 'time', 'Time', 'HH:MM')
     div !{captcha}
     input(type='submit', value='Send')
