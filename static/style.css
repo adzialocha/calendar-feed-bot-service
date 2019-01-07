@@ -151,4 +151,6 @@ label {
 
 .flash__message--success {
   background-color: #0f0;
+
+  color: #000;
 }

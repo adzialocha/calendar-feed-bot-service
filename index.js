@@ -250,7 +250,7 @@ app.post('/broadcast/:id',
             );
           })
           .finally(() => {
-            res.redirect(`/broadcast/${id}`);
+            res.render(`/broadcast/${id}`, { captcha: res.recaptcha, flash: req.flash() });
           });
       } else {
         req.flash(
@@ -321,7 +321,7 @@ app.post('/new',
         );
       })
       .finally(() => {
-        res.redirect('/new');
+        res.render('new', { captcha: res.recaptcha, flash: req.flash() });
       });
   } else {
     req.flash(
