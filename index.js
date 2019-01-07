@@ -205,13 +205,11 @@ app.post('/broadcast/:id',
   body('description')
     .trim()
     .blacklist(SANITIZE_BLACKLIST)
-    .escape()
     .isLength({ max: 140 })
     .withMessage('Description is too long (maximum 140 characters)'),
   body('title')
     .trim()
     .blacklist(SANITIZE_BLACKLIST)
-    .escape()
     .isLength({ min: 5, max: 40 })
     .withMessage('Title is too short or too long (minimum 5 and maximum 40 characters)'),
   check('url')
