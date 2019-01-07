@@ -2,6 +2,9 @@
   "name": "calendar-feed-bots",
   "version": "1.0.0",
   "description": "Feed bots with events",
+  "engines": {
+    "node": "10.x"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node -r dotenv/config index.js",
