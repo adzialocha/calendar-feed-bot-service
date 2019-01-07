@@ -58,7 +58,6 @@ db.schema.hasTable('channels').then(exists => {
   if (!exists) {
     return db.schema.createTable('channels', t => {
       t.string('id', ID_LENGTH).unique().primary();
-      t.timestamp('created_at').defaultTo(db.fn.now());
       t.string('channel', 255);
       t.string('token', 255);
     });
