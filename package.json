@@ -1,5 +1,5 @@
 {
-  "name": "calendar-feed-bots",
+  "name": "calendar-feed-bot-service",
   "version": "1.0.0",
   "description": "Feed bots with events",
   "engines": {
@@ -9,6 +9,10 @@
   "scripts": {
     "start": "node -r dotenv/config index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adzialocha/calendar-feed-bot-service"
   },
   "author": "adzialocha",
   "license": "UNLICENSED",
