@@ -190,9 +190,12 @@ app.get('/broadcast/:id', recaptcha.middleware.render, (req, res) => {
   const { id } = req.params;
 
   db('channels').where({ id }).first('channel')
-    .then(response => {
-      const { channel } = response;
-      res.render('broadcast', { channel, captcha: res.recaptcha });
+    .then(data => {
+      res.render('broadcast', {
+        captcha: res.recaptcha,
+        channel: data.channel,
+        flash: req.flash(),
+      });
     })
     .catch(() => {
       res.render('404');
@@ -268,7 +271,7 @@ app.post('/broadcast/:id',
 });
 
 app.get('/new', recaptcha.middleware.render, (req, res) => {
-  res.render('new', { captcha: res.recaptcha });
+  res.render('new', { flash: req.flash(), captcha: res.recaptcha });
 });
 
 app.post('/new',
@@ -305,7 +308,7 @@ app.post('/new',
 
     req.flash(
       'success',
-      `Thank you! Your channel was registered, you can invite people to post here: ${broadcastUrl(id)}`
+      `Thank you! Your channel was registered, you can invite people to post events by sharing the following broadcast link: ${broadcastUrl(id)}`
     );
 
     res.redirect('/new');
