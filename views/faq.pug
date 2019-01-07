@@ -2,13 +2,43 @@ extends layout.pug
 
 block content
   h2 FAQ
+
   p
-    strong Are private channels allowed?
+    strong I want to post my event, where can I do it?
     span &nbsp;
     span.
-      Currently not supported ..
+      You will need a private broadcasting link you got from someone to do so. You can also create your own by registering a Channel.
+
   p
-    strong Are private channels allowed?
+    strong What do I need to create a new Channel?
     span &nbsp;
     span.
-      Currently not supported ..
+      Create a public Channel and a Bot in Telegram. Make the Bot an admin of your Channel afterwards. You will receive the Token for your Bot after creating it, which you can use then to register your Channel on this page.
+
+  p
+    strong How do I create a Bot?
+    span &nbsp;
+    span.
+      Use the BotFather bot to create a new bot with Telegram:
+    span &nbsp;
+    a(href='https://core.telegram.org/bots#3-how-do-i-create-a-bot', target='_blank') https://core.telegram.org/bots#3-how-do-i-create-a-bot
+
+  p
+    strong Are private Channels allowed?
+    span &nbsp;
+    span.
+      Private channels are currently not supported by this page.
+
+  p
+    strong Why only Telegram?
+    span &nbsp;
+    span.
+      So far this is the only implemented interface as its Channel feature is very easy to use. More messengers might come!
+
+  p
+    strong How is this done? I want to change something!
+    span &nbsp;
+    span.
+      Check out the source code here:
+    span &nbsp;
+    a(href='https://github.com/adzialocha/calendar-feed-bot-service', target='_blank') https://github.com/adzialocha/calendar-feed-bot-service

@@ -5,6 +5,7 @@ include mixins/input-field
 block content
   h2 Broadcast event to channel
   h3= channel
+  p Use this formular to broadcast an event in the given channel.
   form(method='POST')
     +input-field('text', 'title', 'Title', '(max. 40 characters)', 40)
     +input-field('text', 'description', 'Description', 'Describe your event (max. 140 characters)', 140)

@@ -4,7 +4,11 @@ include mixins/input-field
 
 block content
   h2 New channel
-  p Create a new channel for people to post events to. You will need to create a Telegram channel and bot first to proceed.
+
+  p Register your public Telegram Channel here so other people can use it to broadcast events in it. After registering your Channel here you will receive a private broadcasting link which you then can share with your friends.
+
+  p Make sure you also have created a Bot which is an admin with posting rights of your Channel. You can read the FAQ for further informations.
+
   form(method='POST')
     +input-field('text', 'channel', 'Channel Name', '@YourPublicChannelName')
     +input-field('text', 'token', 'Telegram API Bot Token', 'Secret Token')
